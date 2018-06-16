@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2026
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "HttpTriggerJS1", "HttpTriggerJS1\HttpTriggerJS1.njsproj", "{CC5A5FDD-4548-4482-A832-8589FBB8BC8A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CC5A5FDD-4548-4482-A832-8589FBB8BC8A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC5A5FDD-4548-4482-A832-8589FBB8BC8A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC5A5FDD-4548-4482-A832-8589FBB8BC8A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC5A5FDD-4548-4482-A832-8589FBB8BC8A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F7D9AAB9-D466-4BC4-B7D9-D2B67A8322FD}
+	EndGlobalSection
+EndGlobal
