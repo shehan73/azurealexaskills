@@ -22,8 +22,8 @@ const HelpIntentHandler = {
 module.exports = function (context, req) {
     context.log('JavaScript HTTP trigger function processed a request.');
 
-    const alexa = Alexa.handler(event, context);
-    alexa.registerHandlers(handlers);
+    const alexa = Alexa.handler(req, context);
+    //alexa.registerHandlers(handlers);
     alexa.registerV2Handlers(HelpIntentHandler); // New API functions for registering v2 request handlers
     alexa.execute();
 
