@@ -3,3 +3,5 @@
 ################################################################################
 
 /.vs/azurealexaskills/v15/.suo
+/.vs/config/applicationhost.config
+/HttpTriggerJS1/node_modules

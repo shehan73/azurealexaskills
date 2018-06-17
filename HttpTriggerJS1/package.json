@@ -1,11 +1,15 @@
 {
   "name": "alexaskill",
   "version": "1.0.0",
-  "description": "",
+  "description": "test alexa skill",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Shehan",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "ask-sdk": "^2.0.6",
+    "ask-sdk-v1adapter": "^2.0.6"
+  }
 }
