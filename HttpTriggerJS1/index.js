@@ -1,6 +1,6 @@
 'use strict';
 
-const Alexa = require('ask-sdk-v1adapter');
+const Alexa = require('ask-sdk');
 
 let skill;
 
@@ -22,10 +22,17 @@ const HelpIntentHandler = {
 module.exports = function (context, req) {
     context.log('JavaScript HTTP trigger function processed a request.');
 
-    const alexa = Alexa.handler(req, context);
+
+  const skill = Alexa.SkillBuilders.custom()
+    .addRequestHandlers(HelpIntentHandler)
+    .create();
+
+  skill.invoke(req, context);
+
+//    const alexa = Alexa.handler(req, context);
     //alexa.registerHandlers(handlers);
-    alexa.registerV2Handlers(HelpIntentHandler); // New API functions for registering v2 request handlers
-    alexa.execute();
+ //   alexa.registerV2Handlers(HelpIntentHandler); // New API functions for registering v2 request handlers
+ //   alexa.execute();
 
     //if (req.query.name || (req.body && req.body.name)) {
     //    context.res = {
