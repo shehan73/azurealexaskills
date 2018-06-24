@@ -28,6 +28,7 @@ module.exports = function (context, req) {
     .create();
 
   skill.invoke(req, context);
+  context.res = skill.getResponse();
 
 //    const alexa = Alexa.handler(req, context);
     //alexa.registerHandlers(handlers);
