@@ -155,7 +155,6 @@ module.exports = function (context, req) {
 
   const skill = Alexa.SkillBuilders.custom()
     .addRequestHandlers(
-      HelpIntentHandler,
       LaunchRequestHandler
     )
     .create();
