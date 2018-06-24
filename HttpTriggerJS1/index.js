@@ -108,8 +108,9 @@ const LaunchRequestHandler = {
 // HelpIntentHandler re-written following v2 request handler interface
 const HelpIntentHandler = {
   canHandle(handlerInput) {
-    return true; //requestEnvelope.request.type === 'IntentRequest'
-//      && requestEnvelope.request.intent.name === 'AMAZON.HelpIntent';
+    const request = handlerInput.requestEnvelope.request;
+    return request.type === 'IntentRequest'
+      && request.intent.name === 'AMAZON.HelpIntent';
   },
   handle(handlerInput) {
     return handlerInput.responseBuilder

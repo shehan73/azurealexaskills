@@ -16,8 +16,5 @@
       "name": "res"
     }
   ],
-  "disabled": false,
-  "dependencies": {
-    "alexa-sdk": "^1.0.10"
-  }
+  "disabled": false
 }
