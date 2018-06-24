@@ -7,7 +7,7 @@
       "name": "req",
       "route": "hello",
       "methods": [
-        "get"
+        "post" , "get"
       ]
     },
     {

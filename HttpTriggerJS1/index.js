@@ -35,11 +35,6 @@ module.exports = function (context, req) {
     context.done();
   });
 
-//    const alexa = Alexa.handler(req, context);
-    //alexa.registerHandlers(handlers);
- //   alexa.registerV2Handlers(HelpIntentHandler); // New API functions for registering v2 request handlers
- //   alexa.execute();
-
     //if (req.query.name || (req.body && req.body.name)) {
     //    context.res = {
     //        // status: 200, /* Defaults to 200 */
@@ -52,5 +47,4 @@ module.exports = function (context, req) {
     //        body: "Please pass a name on the query string or in the request body"
     //    };
     //}
-    //context.done();
 };
