@@ -92,18 +92,18 @@ const languageStrings = {
 };
 
 // HelpIntentHandler re-written following v2 request handler interface
-//const LaunchRequestHandler = {
-//  canHandle(handlerInput) {
-//    return handlerInput.requestEnvelope.request.type === 'LaunchRequest';
-//  },
-//  handle(handlerInput) {
-//    return handlerInput.responseBuilder
-//      .speak(LAUNCH_MESSAGE)
-//      .reprompt(LAUNCH_MESSAGE)
-//      .withSimpleCard(SKILL_NAME, LAUNCH_MESSAGE)
-//      .getResponse();
-//  },
-//};
+const LaunchRequestHandler = {
+  canHandle(handlerInput) {
+    return handlerInput.requestEnvelope.request.type === 'LaunchRequest';
+  },
+  handle(handlerInput) {
+    return handlerInput.responseBuilder
+      .speak(LAUNCH_MESSAGE)
+      .reprompt(LAUNCH_MESSAGE)
+      .withSimpleCard(SKILL_NAME, LAUNCH_MESSAGE)
+      .getResponse();
+  },
+};
 
 // HelpIntentHandler re-written following v2 request handler interface
 const HelpIntentHandler = {
@@ -154,6 +154,7 @@ module.exports = function (context, req) {
 
   const skill = Alexa.SkillBuilders.custom()
     .addRequestHandlers(
+      LaunchRequestHandler,
       HelpIntentHandler
     )
     .create();
