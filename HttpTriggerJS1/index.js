@@ -22,13 +22,18 @@ const HelpIntentHandler = {
 module.exports = function (context, req) {
     context.log('JavaScript HTTP trigger function processed a request.');
 
-
   const skill = Alexa.SkillBuilders.custom()
     .addRequestHandlers(HelpIntentHandler)
     .create();
 
-  context.log(skill.invoke(req, context));
-//  context.res = skill.getResponse();
+  skill.invoke(req, context).then(function (responseEnvelope) {
+    context.log(responseEnvelope);
+    context.res = {
+      // status: 200, /* Defaults to 200 */
+      body: responseEnvelope
+    };
+
+  });
 
 //    const alexa = Alexa.handler(req, context);
     //alexa.registerHandlers(handlers);
