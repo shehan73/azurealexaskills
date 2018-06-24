@@ -92,24 +92,24 @@ const languageStrings = {
 };
 
 // HelpIntentHandler re-written following v2 request handler interface
-//const LaunchRequestHandler = {
-//  canHandle(handlerInput) {
-//    return handlerInput.requestEnvelope.request.type === 'LaunchRequest';
-//  },
-//  handle(handlerInput) {
-//    return handlerInput.responseBuilder
-//      .speak(this.t('LAUNCH_MESSAGE'))
-//      .reprompt(this.t('LAUNCH_MESSAGE'))
-//      .withSimpleCard(this.t('SKILL_NAME'), this.t('LAUNCH_MESSAGE'))
-//      .getResponse();
-//  },
-//};
+const LaunchRequestHandler = {
+  canHandle(handlerInput) {
+    return handlerInput.requestEnvelope.request.type === 'LaunchRequest';
+  },
+  handle(handlerInput) {
+    return handlerInput.responseBuilder
+      .speak(LAUNCH_MESSAGE)
+      .reprompt(LAUNCH_MESSAGE)
+      .withSimpleCard(SKILL_NAME, LAUNCH_MESSAGE)
+      .getResponse();
+  },
+};
 
 // HelpIntentHandler re-written following v2 request handler interface
 const HelpIntentHandler = {
   canHandle(handlerInput) {
-    return true; //requestEnvelope.request.type === 'IntentRequest'
-//      && requestEnvelope.request.intent.name === 'AMAZON.HelpIntent';
+    return requestEnvelope.request.type === 'IntentRequest'
+      && requestEnvelope.request.intent.name === 'AMAZON.HelpIntent';
   },
   handle(handlerInput) {
     return handlerInput.responseBuilder
@@ -121,42 +121,43 @@ const HelpIntentHandler = {
 };
 
 
-//const CancelAndStopIntentHandler = {
-
-//  canHandle(handlerInput) {
-//    return handlerInput.requestEnvelope.request.type === 'IntentRequest'
-//      && (handlerInput.requestEnvelope.request.intent.name === 'AMAZON.CancelIntent'
-//        || handlerInput.requestEnvelope.request.intent.name === 'AMAZON.StopIntent');
-//  },
-//  handle(handlerInput) {
-//    return handlerInput.responseBuilder
-//      .speak(this.t('STOP_MESSAGE'))
-//      .reprompt(this.t('STOP_MESSAGE'))
-//      .withSimpleCard(this.t('SKILL_NAME'), this.t('STOP_MESSAGE'))
-//      .getResponse();
-//  },
-//};
-
+const CancelAndStopIntentHandler = {
+  canHandle(handlerInput) {
+    return handlerInput.requestEnvelope.request.type === 'IntentRequest'
+      && (handlerInput.requestEnvelope.request.intent.name === 'AMAZON.CancelIntent'
+        || handlerInput.requestEnvelope.request.intent.name === 'AMAZON.StopIntent');
+  },
+  handle(handlerInput) {
+    return handlerInput.responseBuilder
+      .speak(STOP_MESSAGE)
+      .reprompt(STOP_MESSAGE)
+      .withSimpleCard(SKILL_NAME, STOP_MESSAGE)
+      .getResponse();
+  },
+};
 
 
-//const SessionEndedRequestHandler = {
-//  canHandle(handlerInput) {
-//    return handlerInput.requestEnvelope.request.type === 'SessionEndedRequest';
-//  },
 
-//  handle(handlerInput) {
-//    console.log(`Session ended with reason: ${handlerInput.requestEnvelope.request.reason}`);
-//    return handlerInput.responseBuilder.getResponse();
-//  },
-//};
+const SessionEndedRequestHandler = {
+  canHandle(handlerInput) {
+    return handlerInput.requestEnvelope.request.type === 'SessionEndedRequest';
+  },
+
+  handle(handlerInput) {
+    context.log(`Session ended with reason: ${handlerInput.requestEnvelope.request.reason}`);
+    return handlerInput.responseBuilder.getResponse();
+  },
+};
 
 module.exports = function (context, req) {
     context.log('JavaScript HTTP trigger function processed a request.');
 
   const skill = Alexa.SkillBuilders.custom()
     .addRequestHandlers(
-  //    LaunchRequestHandler,
-      HelpIntentHandler)
+      LaunchRequestHandler,
+      HelpIntentHandler,
+      CancelAndStopIntentHandler
+    )
     .create();
 
   skill.invoke(req, context).then(function (responseEnvelope) {
