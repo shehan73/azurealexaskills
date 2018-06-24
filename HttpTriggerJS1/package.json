@@ -9,7 +9,6 @@
   "author": "Shehan",
   "license": "ISC",
   "dependencies": {
-    "ask-sdk": "^2.0.6",
-    "ask-sdk-v1adapter": "^2.0.6"
+    "ask-sdk": "^2.0.6"
   }
 }

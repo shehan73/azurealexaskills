@@ -6,6 +6,20 @@ let skill;
 
 const APP_ID = undefined;  // TODO replace with your app ID (OPTIONAL).
 
+const SKILL_NAME = 'Virtusa <say-as interpret-as="spell-out">EAG</say-as> <say-as interpret-as="spell-out">BI</say-as>';
+const GET_REVENUE_MESSAGE = "Your revenue forecast is ";
+const GET_MARGIN_MESSAGE = "Your acount margin is ";
+const GET_ATTRITION_MESSAGE = "Your attrition is ";
+const LAUNCH_MESSAGE = 'Welcome to Virtusa <say-as interpret-as="spell-out">EAG</say-as> <say-as interpret-as="spell-out">BI</say-as>.  I can give you your revenue forecast, account margin and attrition information... What can I help you with?';
+const ANYMORE_MESSAGE = '.  Would like to know more?';
+const OTHER_MESSAGE_REVENUE = '.  You can also say whats my margin, whats my attrition, or, you can say exit';
+const OTHER_MESSAGE_MARGIN = '.  You can also say whats my revenue, whats my attrition, or, you can say exit';
+const OTHER_MESSAGE_ATTRITION = '.  You can also say whats my revenue, whats my margin, or, you can say exit';
+const DONTUNDERSTAND_MESSAGE = 'Sorry, I dont understand. ';
+const HELP_MESSAGE = 'You can say whats my revenue, whats my margin, whats my attrition, or, you can say exit... What can I help you with?';
+const HELP_REPROMPT = 'What can I help you with?';
+const STOP_MESSAGE = 'Goodbye, have a nice day!';
+
 const METRIC_RESET = '';
 const METRIC_REVENUE = 'revenue';
 const METRIC_MARGIN = 'margin';
@@ -99,9 +113,9 @@ const HelpIntentHandler = {
   },
   handle(handlerInput) {
     return handlerInput.responseBuilder
-      .speak(this.t('HELP_MESSAGE'))
-      .reprompt(this.t('HELP_MESSAGE'))
-      .withSimpleCard(this.t('SKILL_NAME'), this.t('HELP_MESSAGE'))
+      .speak(HELP_MESSAGE)
+      .reprompt(HELP_MESSAGE)
+      .withSimpleCard(SKILL_NAME, HELP_MESSAGE)
       .getResponse();
   },
 };
