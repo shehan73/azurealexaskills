@@ -94,7 +94,7 @@ const languageStrings = {
 // HelpIntentHandler re-written following v2 request handler interface
 const LaunchRequestHandler = {
   canHandle(handlerInput) {
-    return true; //handlerInput.requestEnvelope.request.type === 'LaunchRequest';
+    return handlerInput.requestEnvelope.request.type === 'LaunchRequest';
   },
   handle(handlerInput) {
     return handlerInput.responseBuilder
