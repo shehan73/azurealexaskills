@@ -108,8 +108,8 @@ const LaunchRequestHandler = {
 // HelpIntentHandler re-written following v2 request handler interface
 const HelpIntentHandler = {
   canHandle(handlerInput) {
-    return requestEnvelope.request.type === 'IntentRequest'
-      && requestEnvelope.request.intent.name === 'AMAZON.HelpIntent';
+    return true; //requestEnvelope.request.type === 'IntentRequest'
+//      && requestEnvelope.request.intent.name === 'AMAZON.HelpIntent';
   },
   handle(handlerInput) {
     return handlerInput.responseBuilder
@@ -121,20 +121,20 @@ const HelpIntentHandler = {
 };
 
 
-const CancelAndStopIntentHandler = {
-  canHandle(handlerInput) {
-    return handlerInput.requestEnvelope.request.type === 'IntentRequest'
-      && (handlerInput.requestEnvelope.request.intent.name === 'AMAZON.CancelIntent'
-        || handlerInput.requestEnvelope.request.intent.name === 'AMAZON.StopIntent');
-  },
-  handle(handlerInput) {
-    return handlerInput.responseBuilder
-      .speak(STOP_MESSAGE)
-      .reprompt(STOP_MESSAGE)
-      .withSimpleCard(SKILL_NAME, STOP_MESSAGE)
-      .getResponse();
-  },
-};
+//const CancelAndStopIntentHandler = {
+//  canHandle(handlerInput) {
+//    return handlerInput.requestEnvelope.request.type === 'IntentRequest'
+//      && (handlerInput.requestEnvelope.request.intent.name === 'AMAZON.CancelIntent'
+//        || handlerInput.requestEnvelope.request.intent.name === 'AMAZON.StopIntent');
+//  },
+//  handle(handlerInput) {
+//    return handlerInput.responseBuilder
+//      .speak(STOP_MESSAGE)
+//      .reprompt(STOP_MESSAGE)
+//      .withSimpleCard(SKILL_NAME, STOP_MESSAGE)
+//      .getResponse();
+//  },
+//};
 
 
 
@@ -155,8 +155,7 @@ module.exports = function (context, req) {
   const skill = Alexa.SkillBuilders.custom()
     .addRequestHandlers(
       LaunchRequestHandler,
-      HelpIntentHandler,
-      CancelAndStopIntentHandler
+      HelpIntentHandler
     )
     .create();
 
