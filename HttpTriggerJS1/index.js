@@ -138,16 +138,16 @@ const CancelAndStopIntentHandler = {
 
 
 
-const SessionEndedRequestHandler = {
-  canHandle(handlerInput) {
-    return handlerInput.requestEnvelope.request.type === 'SessionEndedRequest';
-  },
+//const SessionEndedRequestHandler = {
+//  canHandle(handlerInput) {
+//    return handlerInput.requestEnvelope.request.type === 'SessionEndedRequest';
+//  },
 
-  handle(handlerInput) {
-    context.log(`Session ended with reason: ${handlerInput.requestEnvelope.request.reason}`);
-    return handlerInput.responseBuilder.getResponse();
-  },
-};
+//  handle(handlerInput) {
+//    context.log(`Session ended with reason: ${handlerInput.requestEnvelope.request.reason}`);
+//    return handlerInput.responseBuilder.getResponse();
+//  },
+//};
 
 module.exports = function (context, req) {
     context.log('JavaScript HTTP trigger function processed a request.');
