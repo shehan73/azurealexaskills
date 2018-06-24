@@ -27,9 +27,8 @@ module.exports = function (context, req) {
     .addRequestHandlers(HelpIntentHandler)
     .create();
 
-  skill.invoke(req, context);
-  context.res = skill.getResponse();
-  context.log(skill.getResponse);
+  context.log(skill.invoke(req, context));
+//  context.res = skill.getResponse();
 
 //    const alexa = Alexa.handler(req, context);
     //alexa.registerHandlers(handlers);
