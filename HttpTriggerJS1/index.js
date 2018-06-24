@@ -113,7 +113,7 @@ const HelpIntentHandler = {
   },
   handle(handlerInput) {
     return handlerInput.responseBuilder
-      .speak(HELP_MESSAGE)
+      .speak(this.t(HELP_MESSAGE))
       .reprompt(HELP_MESSAGE)
       .withSimpleCard(SKILL_NAME, HELP_MESSAGE)
       .getResponse();
