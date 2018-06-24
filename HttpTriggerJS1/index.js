@@ -78,24 +78,24 @@ const languageStrings = {
 };
 
 // HelpIntentHandler re-written following v2 request handler interface
-const LaunchRequestHandler = {
-  canHandle(handlerInput) {
-    return handlerInput.requestEnvelope.request.type === 'LaunchRequest';
-  },
-  handle(handlerInput) {
-    return handlerInput.responseBuilder
-      .speak(this.t('LAUNCH_MESSAGE'))
-      .reprompt(this.t('LAUNCH_MESSAGE'))
-      .withSimpleCard(this.t('SKILL_NAME'), this.t('LAUNCH_MESSAGE'))
-      .getResponse();
-  },
-};
+//const LaunchRequestHandler = {
+//  canHandle(handlerInput) {
+//    return handlerInput.requestEnvelope.request.type === 'LaunchRequest';
+//  },
+//  handle(handlerInput) {
+//    return handlerInput.responseBuilder
+//      .speak(this.t('LAUNCH_MESSAGE'))
+//      .reprompt(this.t('LAUNCH_MESSAGE'))
+//      .withSimpleCard(this.t('SKILL_NAME'), this.t('LAUNCH_MESSAGE'))
+//      .getResponse();
+//  },
+//};
 
 // HelpIntentHandler re-written following v2 request handler interface
 const HelpIntentHandler = {
   canHandle(handlerInput) {
-    return requestEnvelope.request.type === 'IntentRequest'
-      && requestEnvelope.request.intent.name === 'AMAZON.HelpIntent';
+    return true; //requestEnvelope.request.type === 'IntentRequest'
+//      && requestEnvelope.request.intent.name === 'AMAZON.HelpIntent';
   },
   handle(handlerInput) {
     return handlerInput.responseBuilder
@@ -107,41 +107,41 @@ const HelpIntentHandler = {
 };
 
 
-const CancelAndStopIntentHandler = {
+//const CancelAndStopIntentHandler = {
 
-  canHandle(handlerInput) {
-    return handlerInput.requestEnvelope.request.type === 'IntentRequest'
-      && (handlerInput.requestEnvelope.request.intent.name === 'AMAZON.CancelIntent'
-        || handlerInput.requestEnvelope.request.intent.name === 'AMAZON.StopIntent');
-  },
-  handle(handlerInput) {
-    return handlerInput.responseBuilder
-      .speak(this.t('STOP_MESSAGE'))
-      .reprompt(this.t('STOP_MESSAGE'))
-      .withSimpleCard(this.t('SKILL_NAME'), this.t('STOP_MESSAGE'))
-      .getResponse();
-  },
-};
+//  canHandle(handlerInput) {
+//    return handlerInput.requestEnvelope.request.type === 'IntentRequest'
+//      && (handlerInput.requestEnvelope.request.intent.name === 'AMAZON.CancelIntent'
+//        || handlerInput.requestEnvelope.request.intent.name === 'AMAZON.StopIntent');
+//  },
+//  handle(handlerInput) {
+//    return handlerInput.responseBuilder
+//      .speak(this.t('STOP_MESSAGE'))
+//      .reprompt(this.t('STOP_MESSAGE'))
+//      .withSimpleCard(this.t('SKILL_NAME'), this.t('STOP_MESSAGE'))
+//      .getResponse();
+//  },
+//};
 
 
 
-const SessionEndedRequestHandler = {
-  canHandle(handlerInput) {
-    return handlerInput.requestEnvelope.request.type === 'SessionEndedRequest';
-  },
+//const SessionEndedRequestHandler = {
+//  canHandle(handlerInput) {
+//    return handlerInput.requestEnvelope.request.type === 'SessionEndedRequest';
+//  },
 
-  handle(handlerInput) {
-    console.log(`Session ended with reason: ${handlerInput.requestEnvelope.request.reason}`);
-    return handlerInput.responseBuilder.getResponse();
-  },
-};
+//  handle(handlerInput) {
+//    console.log(`Session ended with reason: ${handlerInput.requestEnvelope.request.reason}`);
+//    return handlerInput.responseBuilder.getResponse();
+//  },
+//};
 
 module.exports = function (context, req) {
     context.log('JavaScript HTTP trigger function processed a request.');
 
   const skill = Alexa.SkillBuilders.custom()
     .addRequestHandlers(
-      LaunchRequestHandler,
+  //    LaunchRequestHandler,
       HelpIntentHandler)
     .create();
 
