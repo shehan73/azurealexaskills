@@ -93,15 +93,46 @@ const LaunchRequestHandler = {
 
 // HelpIntentHandler re-written following v2 request handler interface
 const HelpIntentHandler = {
-  canHandle: function ({ requestEnvelope }) {
+  canHandle(handlerInput) {
     return requestEnvelope.request.type === 'IntentRequest'
       && requestEnvelope.request.intent.name === 'AMAZON.HelpIntent';
   },
-  handle: function ({ responseBuilder }) {
+  handle(handlerInput) {
+    return handlerInput.responseBuilder
       .speak(this.t('HELP_MESSAGE'))
-    .reprompt(this.t('HELP_MESSAGE'))
-    .withSimpleCard(this.t('SKILL_NAME'), this.t('HELP_MESSAGE'))
-    .getResponse();
+      .reprompt(this.t('HELP_MESSAGE'))
+      .withSimpleCard(this.t('SKILL_NAME'), this.t('HELP_MESSAGE'))
+      .getResponse();
+  },
+};
+
+
+const CancelAndStopIntentHandler = {
+
+  canHandle(handlerInput) {
+    return handlerInput.requestEnvelope.request.type === 'IntentRequest'
+      && (handlerInput.requestEnvelope.request.intent.name === 'AMAZON.CancelIntent'
+        || handlerInput.requestEnvelope.request.intent.name === 'AMAZON.StopIntent');
+  },
+  handle(handlerInput) {
+    return handlerInput.responseBuilder
+      .speak(this.t('STOP_MESSAGE'))
+      .reprompt(this.t('STOP_MESSAGE'))
+      .withSimpleCard(this.t('SKILL_NAME'), this.t('STOP_MESSAGE'))
+      .getResponse();
+  },
+};
+
+
+
+const SessionEndedRequestHandler = {
+  canHandle(handlerInput) {
+    return handlerInput.requestEnvelope.request.type === 'SessionEndedRequest';
+  },
+
+  handle(handlerInput) {
+    console.log(`Session ended with reason: ${handlerInput.requestEnvelope.request.reason}`);
+    return handlerInput.responseBuilder.getResponse();
   },
 };
 
