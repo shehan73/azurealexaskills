@@ -246,7 +246,7 @@ const handlers = {
 module.exports = function (context, req) {
     context.log('JavaScript HTTP trigger function processed a request.');
 
-    alexa.setup({
+    Alexa.setup({
       azureCtx: context,
       azureReq: req,
       handlers: handlers,
@@ -255,7 +255,7 @@ module.exports = function (context, req) {
       i18nSettings: { "languageStrings": languageStrings }
     });
 
-    alexa.execute(avsCallback(context, req));
+    Alexa.execute(avsCallback(context, req));
 
 };
 
