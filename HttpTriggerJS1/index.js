@@ -244,7 +244,8 @@ var handlerList = [{
 
 
 module.exports = function (context, req) {
-    context.log('JavaScript HTTP trigger function processed a request.');
+  context.log('JavaScript HTTP trigger function processed a request.');
+  context.log(req);
 
     var alexa = require('alexa-skill-sdk-for-azure-function');
     alexa.setup({
