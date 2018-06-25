@@ -6,20 +6,6 @@ let skill;
 
 const APP_ID = undefined;  // TODO replace with your app ID (OPTIONAL).
 
-const SKILL_NAME = 'Virtusa <say-as interpret-as="spell-out">EAG</say-as> <say-as interpret-as="spell-out">BI</say-as>';
-const GET_REVENUE_MESSAGE = "Your revenue forecast is ";
-const GET_MARGIN_MESSAGE = "Your acount margin is ";
-const GET_ATTRITION_MESSAGE = "Your attrition is ";
-const LAUNCH_MESSAGE = 'Welcome to Virtusa <say-as interpret-as="spell-out">EAG</say-as> <say-as interpret-as="spell-out">BI</say-as>.  I can give you your revenue forecast, account margin and attrition information... What can I help you with?';
-const ANYMORE_MESSAGE = '.  Would like to know more?';
-const OTHER_MESSAGE_REVENUE = '.  You can also say whats my margin, whats my attrition, or, you can say exit';
-const OTHER_MESSAGE_MARGIN = '.  You can also say whats my revenue, whats my attrition, or, you can say exit';
-const OTHER_MESSAGE_ATTRITION = '.  You can also say whats my revenue, whats my margin, or, you can say exit';
-const DONTUNDERSTAND_MESSAGE = 'Sorry, I dont understand. ';
-const HELP_MESSAGE = 'You can say whats my revenue, whats my margin, whats my attrition, or, you can say exit... What can I help you with?';
-const HELP_REPROMPT = 'What can I help you with?';
-const STOP_MESSAGE = 'Goodbye, have a nice day!';
-
 const METRIC_RESET = '';
 const METRIC_REVENUE = 'revenue';
 const METRIC_MARGIN = 'margin';
@@ -90,65 +76,6 @@ const languageStrings = {
     },
   },
 };
-
-// HelpIntentHandler re-written following v2 request handler interface
-//const LaunchRequestHandler = {
-//  canHandle(handlerInput) {
-//    return handlerInput.requestEnvelope.request.type === 'LaunchRequest';
-//  },
-//  handle(handlerInput) {
-//    return handlerInput.responseBuilder
-//      .speak(LAUNCH_MESSAGE)
-//      .reprompt(LAUNCH_MESSAGE)
-//      .withSimpleCard(SKILL_NAME, LAUNCH_MESSAGE)
-//      .getResponse();
-//  },
-//};
-
-// HelpIntentHandler re-written following v2 request handler interface
-//const HelpIntentHandler = {
-//  canHandle(handlerInput) {
-//    const request = handlerInput.requestEnvelope.request;
-//    return request.type === 'IntentRequest'
-//      && request.intent.name === 'AMAZON.HelpIntent';
-//  },
-//  handle(handlerInput) {
-//    return handlerInput.responseBuilder
-//      .speak(HELP_MESSAGE)
-//      .reprompt(HELP_MESSAGE)
-//      .withSimpleCard(SKILL_NAME, HELP_MESSAGE)
-//      .getResponse();
-//  },
-//};
-
-
-//const CancelAndStopIntentHandler = {
-//  canHandle(handlerInput) {
-//    return handlerInput.requestEnvelope.request.type === 'IntentRequest'
-//      && (handlerInput.requestEnvelope.request.intent.name === 'AMAZON.CancelIntent'
-//        || handlerInput.requestEnvelope.request.intent.name === 'AMAZON.StopIntent');
-//  },
-//  handle(handlerInput) {
-//    return handlerInput.responseBuilder
-//      .speak(STOP_MESSAGE)
-//      .reprompt(STOP_MESSAGE)
-//      .withSimpleCard(SKILL_NAME, STOP_MESSAGE)
-//      .getResponse();
-//  },
-//};
-
-
-
-//const SessionEndedRequestHandler = {
-//  canHandle(handlerInput) {
-//    return handlerInput.requestEnvelope.request.type === 'SessionEndedRequest';
-//  },
-
-//  handle(handlerInput) {
-//    context.log(`Session ended with reason: ${handlerInput.requestEnvelope.request.reason}`);
-//    return handlerInput.responseBuilder.getResponse();
-//  },
-//};
 
 
 var handlerList = [{
