@@ -151,7 +151,7 @@ const languageStrings = {
 //};
 
 
-const handlerList = {
+var handlerList = [{
   'LaunchRequest': function () {
     const speechOutput = this.t('LAUNCH_MESSAGE');
     this.emit(':ask', speechOutput);
@@ -240,22 +240,24 @@ const handlerList = {
     console.log("unhandled");
     this.emit(':tell', this.t('STOP_MESSAGE'));
   }
-};
+}];
 
 
 module.exports = function (context, req) {
     context.log('JavaScript HTTP trigger function processed a request.');
 
-    Alexa.setup({
+    var alexa = require('alexa-skill-sdk-for-azure-function');
+    alexa.setup({
       azureCtx: context,
       azureReq: req,
       handlers: handlerList,
+      locale: 'en',
       trackInvokedIntents: true,
-      enforceVerifier: false,
-      i18nSettings: { "languageStrings": languageStrings }
+      enforceVerifier: false
+//      i18nSettings: { "languageStrings": languageStrings }
     });
 
-    Alexa.execute(avsCallback(context, req));
+    alexa.execute(avsCallback(context, req));
 
 };
 
