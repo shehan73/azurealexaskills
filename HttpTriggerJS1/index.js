@@ -1,6 +1,6 @@
 'use strict';
 
-const Alexa = require('ask-sdk');
+const Alexa = require('alexa-skill-sdk-for-azure-function');
 
 let skill;
 
@@ -92,34 +92,34 @@ const languageStrings = {
 };
 
 // HelpIntentHandler re-written following v2 request handler interface
-const LaunchRequestHandler = {
-  canHandle(handlerInput) {
-    return handlerInput.requestEnvelope.request.type === 'LaunchRequest';
-  },
-  handle(handlerInput) {
-    return handlerInput.responseBuilder
-      .speak(LAUNCH_MESSAGE)
-      .reprompt(LAUNCH_MESSAGE)
-      .withSimpleCard(SKILL_NAME, LAUNCH_MESSAGE)
-      .getResponse();
-  },
-};
+//const LaunchRequestHandler = {
+//  canHandle(handlerInput) {
+//    return handlerInput.requestEnvelope.request.type === 'LaunchRequest';
+//  },
+//  handle(handlerInput) {
+//    return handlerInput.responseBuilder
+//      .speak(LAUNCH_MESSAGE)
+//      .reprompt(LAUNCH_MESSAGE)
+//      .withSimpleCard(SKILL_NAME, LAUNCH_MESSAGE)
+//      .getResponse();
+//  },
+//};
 
 // HelpIntentHandler re-written following v2 request handler interface
-const HelpIntentHandler = {
-  canHandle(handlerInput) {
-    const request = handlerInput.requestEnvelope.request;
-    return request.type === 'IntentRequest'
-      && request.intent.name === 'AMAZON.HelpIntent';
-  },
-  handle(handlerInput) {
-    return handlerInput.responseBuilder
-      .speak(HELP_MESSAGE)
-      .reprompt(HELP_MESSAGE)
-      .withSimpleCard(SKILL_NAME, HELP_MESSAGE)
-      .getResponse();
-  },
-};
+//const HelpIntentHandler = {
+//  canHandle(handlerInput) {
+//    const request = handlerInput.requestEnvelope.request;
+//    return request.type === 'IntentRequest'
+//      && request.intent.name === 'AMAZON.HelpIntent';
+//  },
+//  handle(handlerInput) {
+//    return handlerInput.responseBuilder
+//      .speak(HELP_MESSAGE)
+//      .reprompt(HELP_MESSAGE)
+//      .withSimpleCard(SKILL_NAME, HELP_MESSAGE)
+//      .getResponse();
+//  },
+//};
 
 
 //const CancelAndStopIntentHandler = {
@@ -150,22 +150,128 @@ const HelpIntentHandler = {
 //  },
 //};
 
+
+const handlers = {
+  'LaunchRequest': function () {
+    const speechOutput = this.t('LAUNCH_MESSAGE');
+    this.emit(':ask', speechOutput);
+  },
+  'GetRevenueIntent': function () {
+    this.attributes[STATE_PREV_METRIC] = METRIC_REVENUE;
+
+    // Create speech output
+    const speechOutput = this.t('GET_REVENUE_MESSAGE') + vrtuRevenue + this.t('ANYMORE_MESSAGE');
+    this.emit(':askWithCard', speechOutput, this.t('SKILL_NAME'), vrtuRevenue);
+  },
+  'GetMarginIntent': function () {
+    this.attributes[STATE_PREV_METRIC] = METRIC_MARGIN;
+
+    // Create speech output
+    const speechOutput = this.t('GET_MARGIN_MESSAGE') + vrtuMargin + this.t('ANYMORE_MESSAGE');
+    this.emit(':askWithCard', speechOutput, this.t('SKILL_NAME'), vrtuMargin);
+  },
+  'GetAttritionIntent': function () {
+    this.attributes[STATE_PREV_METRIC] = METRIC_ATTRITION;
+
+    // Create speech output
+    const speechOutput = this.t('GET_ATTRITION_MESSAGE') + vrtuAttrition + this.t('ANYMORE_MESSAGE');
+    this.emit(':askWithCard', speechOutput, this.t('SKILL_NAME'), vrtuAttrition);
+  },
+  'AMAZON.YesIntent': function () {
+    //this.attributes[STATE_PREV_METRIC] = METRIC_REVENUE;
+    const prevMetric = this.attributes[STATE_PREV_METRIC];
+    console.log("cancel " + STATE_PREV_METRIC + ": " + prevMetric);
+
+    var speechOutput = this.t('DONTUNDERSTAND_MESSAGE') + this.t('HELP_MESSAGE');
+    console.log("prevMetric: " + prevMetric);
+
+    if (prevMetric != undefined && prevMetric != METRIC_RESET) {
+      if (prevMetric == METRIC_REVENUE) {
+        speechOutput = 'The revenue forecast for ';
+
+        let i;
+        for (i = 0; i < gsbuRevenue.length - 1; ++i) {
+          console.log('revenue ' + gsbuRevenue[i]);
+          speechOutput += gsbuRevenue[i].name + ' is ' + gsbuRevenue[i].value + ', ';
+        }
+        speechOutput += 'and ' + gsbuRevenue[gsbuRevenue.length - 1].name + ' is ' + gsbuRevenue[gsbuRevenue.length - 1].value + this.t('OTHER_MESSAGE_REVENUE');
+      }
+      else if (prevMetric == METRIC_MARGIN) {
+        speechOutput = 'The account margin for ';
+
+        let i;
+        for (i = 0; i < gsbuMargin.length - 1; ++i) {
+          console.log('margin ' + gsbuMargin[i]);
+          speechOutput += gsbuMargin[i].name + ' is ' + gsbuMargin[i].value + ', ';
+        }
+        speechOutput += 'and ' + gsbuMargin[gsbuMargin.length - 1].name + ' is ' + gsbuMargin[gsbuMargin.length - 1].value + this.t('OTHER_MESSAGE_MARGIN');
+      }
+      else {
+        speechOutput = 'The attrition for ';
+
+        let i;
+        for (i = 0; i < gsbuAttrition.length - 1; ++i) {
+          console.log('margin ' + gsbuAttrition[i]);
+          speechOutput += gsbuAttrition[i].name + ' is ' + gsbuAttrition[i].value + ', ';
+        }
+        speechOutput += 'and ' + gsbuAttrition[gsbuAttrition.length - 1].name + ' is ' + gsbuAttrition[gsbuAttrition.length - 1].value + this.t('OTHER_MESSAGE_ATTRITION');
+      }
+    }
+
+    this.attributes[STATE_PREV_METRIC] = METRIC_RESET;
+
+    this.emit(':askWithCard', speechOutput);
+  },
+  'AMAZON.HelpIntent': function () {
+    const speechOutput = this.t('HELP_MESSAGE');
+    const reprompt = this.t('HELP_MESSAGE');
+    this.emit(':ask', speechOutput, reprompt);
+  },
+  'AMAZON.CancelIntent': function () {
+    this.emit(':tell', this.t('STOP_MESSAGE'));
+  },
+  'AMAZON.StopIntent': function () {
+    this.emit(':tell', this.t('STOP_MESSAGE'));
+  },
+  'AMAZON.NoIntent': function () {
+    this.emit(':tell', this.t('STOP_MESSAGE'));
+  },
+  "Unhandled": function () {
+    console.log("unhandled");
+    this.emit(':tell', this.t('STOP_MESSAGE'));
+  }
+};
+
+
 module.exports = function (context, req) {
     context.log('JavaScript HTTP trigger function processed a request.');
 
-  const skill = Alexa.SkillBuilders.custom()
-    .addRequestHandlers(
-      LaunchRequestHandler
-    )
-    .create();
+    alexa.setup({
+      azureCtx: context,
+      azureReq: req,
+      handlers: handlers,
+      trackInvokedIntents: true,
+      enforceVerifier: false,
+      i18nSettings: { "languageStrings": languageStrings }
+    });
 
-  skill.invoke(req, context).then(function (responseEnvelope) {
-    context.log(responseEnvelope);
-    context.res = {
-      // status: 200, /* Defaults to 200 */
-      body: responseEnvelope
-    };
-    context.done();
-  });
+    alexa.execute(avsCallback(context, req));
 
+};
+
+var avsCallback = function (azureCtx, req) {
+  return function (err, obj) {
+
+    if (err) {
+      azureCtx.res = {
+        status: 400,
+        body: err
+      };
+    } else {
+      azureCtx.res = {
+        body: obj
+      };
+    }
+    azureCtx.done();
+  };
 };
