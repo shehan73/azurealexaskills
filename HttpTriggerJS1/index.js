@@ -251,7 +251,6 @@ module.exports = function (context, req) {
       azureCtx: context,
       azureReq: req,
       handlers: handlerList,
-      locale: 'en',
       trackInvokedIntents: true,
       enforceVerifier: false
 //      i18nSettings: { "languageStrings": languageStrings }
