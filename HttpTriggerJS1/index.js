@@ -151,7 +151,7 @@ const languageStrings = {
 //};
 
 
-const handlers = {
+const handlerList = {
   'LaunchRequest': function () {
     const speechOutput = this.t('LAUNCH_MESSAGE');
     this.emit(':ask', speechOutput);
@@ -249,7 +249,7 @@ module.exports = function (context, req) {
     Alexa.setup({
       azureCtx: context,
       azureReq: req,
-      handlers: handlers,
+      handlers: handlerList,
       trackInvokedIntents: true,
       enforceVerifier: false,
       i18nSettings: { "languageStrings": languageStrings }
