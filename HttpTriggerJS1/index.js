@@ -253,8 +253,8 @@ module.exports = function (context, req) {
       azureReq: req,
       handlers: handlerList,
       trackInvokedIntents: true,
-      enforceVerifier: false
-//      i18nSettings: { "languageStrings": languageStrings }
+      enforceVerifier: false,
+      i18nSettings: { "languageStrings": languageStrings }
     });
 
     alexa.execute(avsCallback(context, req));
