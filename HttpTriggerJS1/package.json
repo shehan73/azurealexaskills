@@ -9,6 +9,8 @@
   "author": "Shehan",
   "license": "ISC",
   "dependencies": {
-    "alexa-skill-sdk-for-azure-function": "^1.0.8"
+    "alexa-skill-sdk-for-azure-function": "^1.0.8",
+    "azure-ad-jwt": "^1.1.0",
+    "jsonwebtoken": "^8.3.0"
   }
 }

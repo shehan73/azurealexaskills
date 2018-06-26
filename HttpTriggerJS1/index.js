@@ -1,10 +1,13 @@
 'use strict';
 
 const Alexa = require('alexa-skill-sdk-for-azure-function');
+const Aad = require('azure-ad-jwt');
+//const Jwt = require('jsonwebtoken');
 
 let skill;
 
 const APP_ID = undefined;  // TODO replace with your app ID (OPTIONAL).
+const AZURE_SKILLAPI_APP_ID_URI = 'https://virtusaonline.onmicrosoft.com/2f3963c2-c85b-473f-ab7e-bf0359edbecf';
 
 const METRIC_RESET = '';
 const METRIC_REVENUE = 'revenue';
@@ -63,6 +66,7 @@ const languageStrings = {
       HELP_MESSAGE: 'You can say whats my revenue, whats my margin, whats my attrition, or, you can say exit... What can I help you with?',
       HELP_REPROMPT: 'What can I help you with?',
       STOP_MESSAGE: 'Goodbye, have a nice day!',
+      ACCOUNT_LINK_MESSAGE: 'Please link your Virtusa account to use this skill.',
     },
   },
   'en-US': {
@@ -163,6 +167,11 @@ var handlerList = [{
   'AMAZON.NoIntent': function () {
     this.emit(':tell', this.t('STOP_MESSAGE'));
   },
+  "AccountLinkNeeded": function () {
+    console.log("account linking needed");
+
+    this.emit(':tellWithLinkAccountCard', this.t('ACCOUNT_LINK_MESSAGE'));
+  },
   "Unhandled": function () {
     console.log("unhandled");
     this.emit(':tell', this.t('STOP_MESSAGE'));
@@ -172,19 +181,53 @@ var handlerList = [{
 
 module.exports = function (context, req) {
   context.log('JavaScript HTTP trigger function processed a request.');
-  context.log(req);
+//  context.log(req);
 
-    var alexa = require('alexa-skill-sdk-for-azure-function');
-    alexa.setup({
-      azureCtx: context,
-      azureReq: req,
-      handlers: handlerList,
-      trackInvokedIntents: true,
-      enforceVerifier: false,
-      i18nSettings: { "languageStrings": languageStrings }
+  Alexa.setup({
+    azureCtx: context,
+    azureReq: req,
+    handlers: handlerList,
+    trackInvokedIntents: true,
+    enforceVerifier: false,
+    i18nSettings: { "languageStrings": languageStrings }
+  });
+
+  // Get the OAuth 2.0 Bearer Token from the linked account
+  var token = req.body.session.user.accessToken;
+
+  // validate the Auth Token
+  if (token) {
+
+    //var decoded = Jwt.decode(token, { complete: true });
+    //context.log(decoded.header);
+    //context.log(decoded.payload)
+
+    Aad.verify(token, { audience: AZURE_SKILLAPI_APP_ID_URI }, function (err, result) {
+      if (result) {
+        context.log("JWT is valid");
+
+      } else {
+        context.log("JWT is invalid: " + err);
+        req.body.request.type = 'AccountLinkNeeded';
+
+      }
+
+      // Handle the intent
+      Alexa.execute(avsCallback(context, req));
+
     });
 
-    alexa.execute(avsCallback(context, req));
+
+
+  } else {
+    // no token! display card and let user know they need to sign in
+    context.log("No Auth Token");
+    req.body.request.type = 'AccountLinkNeeded';
+
+    // Handle the intent
+    Alexa.execute(avsCallback(context, req));
+
+  }
 
 };
 
