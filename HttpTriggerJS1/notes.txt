@@ -1,0 +1,25 @@
+
+
+Amazon account linking 
+Authorization URI: https://login.microsoftonline.com/0d85160c-5899-44ca-acc8-db1501b993b6/oauth2/authorize?resource=https://virtusaonline.onmicrosoft.com/2f3963c2-c85b-473f-ab7e-bf0359edbecf
+Access Token URI: https://login.microsoftonline.com/0d85160c-5899-44ca-acc8-db1501b993b6/oauth2/token
+
+Azure App - Frontend (skill)
+Frontend ID: 779cf643-730f-4a2c-9679-9e015af50585
+Frontend Secret: HhzvTA6LOlN/IMX5VL9sSwdRAt9MbBV1r8DGZzlCihs=
+
+Azure App - Backendend (function)
+Backend ID: 6f3f0e46-09a9-4025-9995-067a95689d14
+Backend Secret: U18OnAmUnG8PUnTu9PjTEwzeORDQo7JAv2sbI9sxnDQ=
+
+
+
+Amazon Alexa Skills authenticated by Azure Active Directory and backed by an Azure Function
+
+https://blogs.msdn.microsoft.com/premier_developer/2018/01/25/amazon-alexa-skills-authenticated-by-azure-active-directory-and-backed-by-an-azure-function/
+needs to be updated with the following:
+Front end application needs to be created as a Web App/API (not native) - otherwise, it's not possible to create a client key
+In Alexa account linking section update URLs to use login.microsoftonline.com instead of login.windows.net
+ClientId  and key needs to be the Application Id of the "front end" app registration
+The client secret (key) that is used can not be one that "Never Expires". Use a 1 or 2 year duration.
+
